@@ -14,14 +14,25 @@ import moment from 'moment';
 import Incomplete from '../components/Incomplete';
 import Complete from '../components/Complete';
 import TaskModal from '../components/Modal';
+import {useDispatch} from 'react-redux';
+import {addTodo} from '../redux/actions/actions';
 
 const SomeComponent: React.FC = () => {
   const {isDarkMode, toggleTheme, theme} = useContext(ThemeContext);
   const [modalVisible, setModalVisible] = useState(false);
   const [taskInput, setTaskInput] = useState('');
 
+  let dispatch = useDispatch();
+
   const handleAddTask = (task: string) => {
-    console.log('New task:', task);
+    // console.log('New task:', task);
+    dispatch(
+      addTodo({
+        id: Math.floor(Math.random() * 1000),
+        title: task,
+        completed: false,
+      }),
+    );
     setModalVisible(false);
     setTaskInput('');
   };
@@ -99,7 +110,8 @@ const styles = StyleSheet.create({
     opacity: 0.2,
   },
   plusIcon: {
-    top: '70%',
-    left: '80%',
+    position: 'absolute',
+    top: '235%',
+    left: '85%',
   },
 });

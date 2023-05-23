@@ -1,23 +1,22 @@
 import {Provider} from 'react-redux';
 import {ThemeProvider} from './src/context/ThemeContext';
 import MainComponent from './src/screens/MainComponent';
-// import {createStore} from 'redux';
-// import {CategoryReducer} from './src/redux/reducers/СategoryReducer';
+import {TodoReducer} from './src/redux/reducers/TodoReducer';
+import {createStore} from 'redux';
 
-// let store = createStore(CategoryReducer);
+let store = createStore(TodoReducer);
 
-// export type RootState = ReturnType<typeof store.getState>;
+export type RootState = ReturnType<typeof store.getState>;
 
 const App = () => {
-  // console.log(typeof store.getState);
+  console.log(typeof store.getState);
 
   return (
-    // <Provider store={store}>
-    <ThemeProvider>
-      <MainComponent />
-    </ThemeProvider>
-
-    // </Provider>
+    <Provider store={store}>
+      <ThemeProvider>
+        <MainComponent />
+      </ThemeProvider>
+    </Provider>
   );
 };
 

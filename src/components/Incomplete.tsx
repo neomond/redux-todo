@@ -2,9 +2,11 @@ import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import React, {useContext} from 'react';
 import {ThemeContext} from '../context/ThemeContext';
 import Checkbox from './CheckBox';
+import {useSelector} from 'react-redux';
 
 const Incomplete = () => {
   const {isDarkMode, toggleTheme, theme} = useContext(ThemeContext);
+  const incompleteTodos = useSelector((state: any) => state.incompleteTodos);
 
   return (
     <ScrollView style={styles.mainCont}>
@@ -12,10 +14,17 @@ const Incomplete = () => {
         Incompleted
       </Text>
       <View style={styles.checkBoxWrapper}>
-        <Checkbox />
-        <Text style={[styles.textItem, {color: theme.textColor}]}>
-          Upload 1099-R to TurboTax
-        </Text>
+        {incompleteTodos.map((todo: any) => (
+          <>
+            <Checkbox />
+            <Text
+              key={todo.id}
+              style={[styles.textItem, {color: theme.textColor}]}>
+              {/* Upload 1099-R to TurboTax */}
+              {todo.task}
+            </Text>
+          </>
+        ))}
       </View>
     </ScrollView>
   );
@@ -35,6 +44,7 @@ const styles = StyleSheet.create({
   textItem: {
     fontWeight: '500',
     fontSize: 16,
+    flexDirection: 'column',
   },
   checkBoxWrapper: {
     flexDirection: 'row',

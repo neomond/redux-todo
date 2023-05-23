@@ -8,6 +8,8 @@ import {
   StyleSheet,
   TouchableWithoutFeedback,
 } from 'react-native';
+import {useDispatch} from 'react-redux';
+import {addTodo} from '../redux/actions/actions';
 
 interface TaskModalProps {
   visible: boolean;
@@ -18,7 +20,10 @@ interface TaskModalProps {
 const TaskModal: React.FC<TaskModalProps> = ({visible, onClose, onAddTask}) => {
   const [taskInput, setTaskInput] = useState('');
 
+  let dispatch = useDispatch();
+
   const handleAddTask = () => {
+    dispatch(addTodo(taskInput));
     onAddTask(taskInput);
     setTaskInput('');
   };

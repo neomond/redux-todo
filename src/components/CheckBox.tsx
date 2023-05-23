@@ -1,16 +1,24 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {StyleSheet, TouchableOpacity, View, Text} from 'react-native';
+import {ThemeContext} from '../context/ThemeContext';
 
 const Checkbox = () => {
   const [checked, setChecked] = useState(false);
+  const {isDarkMode, toggleTheme, theme} = useContext(ThemeContext);
 
   const handleToggle = () => {
     setChecked(!checked);
   };
 
+  const checkboxStyle = {
+    ...styles.checkbox,
+    borderColor: theme.textColor,
+    backgroundColor: checked ? theme.textColor : 'transparent',
+  };
+
   return (
     <TouchableOpacity onPress={handleToggle} style={styles.checkboxContainer}>
-      <View style={[styles.checkbox, checked && styles.checkboxChecked]} />
+      <View style={[checkboxStyle, checked && styles.checkboxChecked]} />
     </TouchableOpacity>
   );
 };
@@ -29,7 +37,7 @@ const styles = StyleSheet.create({
     marginRight: 8,
   },
   checkboxChecked: {
-    backgroundColor: 'black',
+    backgroundColor: '#262933',
   },
 });
 
