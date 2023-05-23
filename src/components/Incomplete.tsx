@@ -15,15 +15,14 @@ const Incomplete = () => {
       </Text>
       <View style={styles.checkBoxWrapper}>
         {incompleteTodos.map((todo: any) => (
-          <>
+          <View style={styles.mappedWrapper}>
             <Checkbox />
             <Text
               key={todo.id}
               style={[styles.textItem, {color: theme.textColor}]}>
-              {/* Upload 1099-R to TurboTax */}
-              {todo.task}
+              {todo.title}
             </Text>
-          </>
+          </View>
         ))}
       </View>
     </ScrollView>
@@ -47,8 +46,11 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
   },
   checkBoxWrapper: {
+    flexDirection: 'column',
+    rowGap: 12,
+  },
+  mappedWrapper: {
     flexDirection: 'row',
-    alignItems: 'center',
     justifyContent: 'flex-start',
   },
 });

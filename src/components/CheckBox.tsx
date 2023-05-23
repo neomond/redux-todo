@@ -13,7 +13,7 @@ const Checkbox = () => {
   const checkboxStyle = {
     ...styles.checkbox,
     borderColor: theme.textColor,
-    backgroundColor: checked ? theme.textColor : 'transparent',
+    backgroundColor: checked ? theme.backgroundColor : 'transparent',
   };
 
   return (

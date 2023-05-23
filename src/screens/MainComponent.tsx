@@ -7,6 +7,7 @@ import {
   StyleSheet,
   StatusBar,
   Image,
+  ScrollView,
 } from 'react-native';
 import {ThemeContext} from '../context/ThemeContext';
 import {Divider, Switch} from 'react-native-paper';
@@ -23,16 +24,13 @@ const SomeComponent: React.FC = () => {
   const [taskInput, setTaskInput] = useState('');
 
   let dispatch = useDispatch();
-
-  const handleAddTask = (task: string) => {
-    // console.log('New task:', task);
-    dispatch(
-      addTodo({
-        id: Math.floor(Math.random() * 1000),
-        title: task,
-        completed: false,
-      }),
-    );
+  const handleAddTask = (task: any) => {
+    const newTodo = {
+      id: Math.floor(Math.random() * 1000),
+      title: task,
+      completed: false,
+    };
+    dispatch(addTodo(newTodo));
     setModalVisible(false);
     setTaskInput('');
   };
@@ -52,7 +50,7 @@ const SomeComponent: React.FC = () => {
         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
         backgroundColor={theme.backgroundColor}
       />
-      <View style={styles.mainConatiner}>
+      <ScrollView style={styles.mainConatiner}>
         <View style={styles.headerStyle}>
           <View>
             <Text style={[styles.textHeader, {color: theme.textColor}]}>
@@ -77,7 +75,7 @@ const SomeComponent: React.FC = () => {
           onClose={closeModal}
           onAddTask={handleAddTask}
         />
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
@@ -111,7 +109,7 @@ const styles = StyleSheet.create({
   },
   plusIcon: {
     position: 'absolute',
-    top: '235%',
-    left: '85%',
+    bottom: '-115%',
+    left: '80%',
   },
 });
