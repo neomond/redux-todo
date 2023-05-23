@@ -7,31 +7,34 @@ import {
   StyleSheet,
   StatusBar,
   Image,
-  Modal,
-  TextInput,
 } from 'react-native';
 import {ThemeContext} from '../context/ThemeContext';
 import {Divider, Switch} from 'react-native-paper';
 import moment from 'moment';
 import Incomplete from '../components/Incomplete';
 import Complete from '../components/Complete';
+import TaskModal from '../components/Modal';
 
 const SomeComponent: React.FC = () => {
   const {isDarkMode, toggleTheme, theme} = useContext(ThemeContext);
   const [modalVisible, setModalVisible] = useState(false);
   const [taskInput, setTaskInput] = useState('');
 
+  const handleAddTask = (task: string) => {
+    // Handle adding the task
+    console.log('New task:', task);
+    setModalVisible(false);
+    setTaskInput('');
+  };
+
+  const closeModal = () => {
+    setModalVisible(false);
+    setTaskInput('');
+  };
   const onToggleSwitch = () => {
     toggleTheme();
   };
   const currentDate = moment().format('MMMM D, YYYY');
-
-  const handleAddTask = () => {
-    // Handle adding the task
-    console.log('New task:', taskInput);
-    setModalVisible(false);
-    setTaskInput('');
-  };
 
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: theme.backgroundColor}}>
@@ -57,29 +60,11 @@ const SomeComponent: React.FC = () => {
         <TouchableOpacity onPress={() => setModalVisible(true)}>
           <Image source={require('../assets/addTaskIcon.png')} />
         </TouchableOpacity>
-
-        <Modal
+        <TaskModal
           visible={modalVisible}
-          onRequestClose={() => setModalVisible(false)}
-          animationType="slide">
-          <View style={styles.modalContainer}>
-            <Text style={styles.modalTitle}>Add Task</Text>
-            <TextInput
-              style={styles.textInput}
-              placeholder="Enter task"
-              value={taskInput}
-              onChangeText={text => setTaskInput(text)}
-            />
-            <TouchableOpacity style={styles.addButton} onPress={handleAddTask}>
-              <Text style={styles.addButtonLabel}>Add</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.cancelButton}
-              onPress={() => setModalVisible(false)}>
-              <Text style={styles.cancelButtonLabel}>Cancel</Text>
-            </TouchableOpacity>
-          </View>
-        </Modal>
+          onClose={closeModal}
+          onAddTask={handleAddTask}
+        />
       </View>
     </SafeAreaView>
   );
