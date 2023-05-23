@@ -21,7 +21,6 @@ const SomeComponent: React.FC = () => {
   const [taskInput, setTaskInput] = useState('');
 
   const handleAddTask = (task: string) => {
-    // Handle adding the task
     console.log('New task:', task);
     setModalVisible(false);
     setTaskInput('');
@@ -57,7 +56,9 @@ const SomeComponent: React.FC = () => {
         <Divider style={styles.dividerStyle} />
         <Incomplete />
         <Complete />
-        <TouchableOpacity onPress={() => setModalVisible(true)}>
+        <TouchableOpacity
+          style={styles.plusIcon}
+          onPress={() => setModalVisible(true)}>
           <Image source={require('../assets/addTaskIcon.png')} />
         </TouchableOpacity>
         <TaskModal
@@ -96,5 +97,9 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     color: '#575767',
     opacity: 0.2,
+  },
+  plusIcon: {
+    top: '70%',
+    left: '80%',
   },
 });
