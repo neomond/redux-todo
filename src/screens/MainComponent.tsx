@@ -15,12 +15,14 @@ import moment from 'moment';
 import Incomplete from '../components/Incomplete';
 import Complete from '../components/Complete';
 import TaskModal from '../components/Modal';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
+// import {RootState} from '../../App';
 
 const SomeComponent: React.FC = () => {
   const {isDarkMode, toggleTheme, theme} = useContext(ThemeContext);
   const [modalVisible, setModalVisible] = useState(false);
   const [taskInput, setTaskInput] = useState('');
+  //   const todos = useSelector((state: RootState) => state.todos);
 
   let dispatch = useDispatch();
   const handleAddTask = (task: any) => {
@@ -60,7 +62,12 @@ const SomeComponent: React.FC = () => {
             <Switch value={isDarkMode} onValueChange={onToggleSwitch} />
           </TouchableOpacity>
         </View>
-        <Text style={styles.statusText}>1 incomplete, 1 completed</Text>
+        <Text style={styles.statusText}>
+          {/* {todos.filter((todo: any) => !todo.completed).length} Completed,
+          incomplete, {todos.filter((todo: any) => todo.completed).length}
+          Incompleted completed */}
+          1 Completed, 1 Incompleted
+        </Text>
         <Divider style={styles.dividerStyle} />
         <Incomplete />
         <Complete />

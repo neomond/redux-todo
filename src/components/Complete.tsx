@@ -9,6 +9,8 @@ const Complete = () => {
   const [toggleCheckBox, setToggleCheckBox] = useState(true);
 
   const dispatch = useDispatch();
+
+  //   ------------------------------
   let data: any = useSelector(state => state);
 
   const completeTodos = useSelector((state: any) =>
