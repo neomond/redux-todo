@@ -16,7 +16,6 @@ import Incomplete from '../components/Incomplete';
 import Complete from '../components/Complete';
 import TaskModal from '../components/Modal';
 import {useDispatch} from 'react-redux';
-import {addTodo} from '../redux/actions/actions';
 
 const SomeComponent: React.FC = () => {
   const {isDarkMode, toggleTheme, theme} = useContext(ThemeContext);
@@ -30,7 +29,7 @@ const SomeComponent: React.FC = () => {
       title: task,
       completed: false,
     };
-    dispatch(addTodo(newTodo));
+    dispatch({type: 'ADD_TODO', payload: newTodo});
     setModalVisible(false);
     setTaskInput('');
   };
@@ -61,21 +60,22 @@ const SomeComponent: React.FC = () => {
             <Switch value={isDarkMode} onValueChange={onToggleSwitch} />
           </TouchableOpacity>
         </View>
-        <Text style={styles.statusText}>5 incomplete, 5 completed</Text>
+        <Text style={styles.statusText}>1 incomplete, 1 completed</Text>
         <Divider style={styles.dividerStyle} />
         <Incomplete />
         <Complete />
-        <TouchableOpacity
-          style={styles.plusIcon}
-          onPress={() => setModalVisible(true)}>
-          <Image source={require('../assets/addTaskIcon.png')} />
-        </TouchableOpacity>
+
         <TaskModal
           visible={modalVisible}
           onClose={closeModal}
           onAddTask={handleAddTask}
         />
       </ScrollView>
+      <TouchableOpacity
+        style={styles.plusIcon}
+        onPress={() => setModalVisible(true)}>
+        <Image source={require('../assets/addTaskIcon.png')} />
+      </TouchableOpacity>
     </SafeAreaView>
   );
 };
@@ -108,8 +108,9 @@ const styles = StyleSheet.create({
     opacity: 0.2,
   },
   plusIcon: {
-    position: 'absolute',
-    bottom: '-115%',
-    left: '80%',
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end',
+    marginBottom: 20,
+    marginRight: 20,
   },
 });

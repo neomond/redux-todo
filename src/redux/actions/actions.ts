@@ -4,3 +4,10 @@ export const addTodo = (task: any) => {
     payload: task,
   };
 };
+
+export const toggleTodoCompletion = (todoId: any, checked: any) => {
+  return {
+    type: 'TOGGLE_TODO_COMPLETION',
+    payload: {todoId, completed: checked},
+  };
+};

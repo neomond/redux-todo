@@ -1,8 +1,15 @@
 import React, {useContext, useState} from 'react';
 import {StyleSheet, TouchableOpacity, View, Text} from 'react-native';
 import {ThemeContext} from '../context/ThemeContext';
+// import React, {useState} from 'react';
+// import {View, Text} from 'react-native';
+// import CheckBox from '@react-native-community/checkbox';
 
-const Checkbox = () => {
+interface CheckboxProps {
+  checked?: boolean;
+  onToggle?: (checked: boolean) => void;
+}
+const Checkbox: React.FC<CheckboxProps> = () => {
   const [checked, setChecked] = useState(false);
   const {isDarkMode, toggleTheme, theme} = useContext(ThemeContext);
 
@@ -42,3 +49,18 @@ const styles = StyleSheet.create({
 });
 
 export default Checkbox;
+
+// export const MyCheckBox = () => {
+//   const [isSelected, setSelection] = useState(false);
+
+//   const handleCheckboxChange = () => {
+//     setSelection(!isSelected);
+//   };
+
+//   return (
+//     <View>
+//       <CheckBox value={isSelected} onValueChange={handleCheckboxChange} />
+//       <Text>{isSelected ? 'Checked' : 'Unchecked'}</Text>
+//     </View>
+//   );
+// };
